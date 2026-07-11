@@ -5,5 +5,8 @@ node_modules/
 *.log
 .DS_Store
 
+# built bundle — distributed via GitHub Releases, not committed
+*.mcpb
+
 # Claude Code local (per-user) settings — never commit
 .claude/settings.local.json

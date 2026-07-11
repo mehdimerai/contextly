@@ -1,0 +1,13 @@
+# Files excluded from the .mcpb bundle (keeps it lean; server needs only
+# manifest.json, bin/, lib.js, config.js, util.js, stores/, and node_modules).
+.git/
+.github/
+.claude/
+docs/
+test/
+scripts/
+*.mcpb
+.mcpbignore
+.env
+.env.*
+.DS_Store

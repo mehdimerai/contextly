@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "node bin/contextly.js",
-    "test": "node test/smoke.js"
+    "test": "node test/smoke.js",
+    "build:mcpb": "npm install --omit=dev --no-audit --no-fund && npx -y @anthropic-ai/mcpb@latest pack . contextly.mcpb"
   },
   "keywords": [
     "mcp",

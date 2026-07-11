@@ -1,0 +1,48 @@
+{
+  "manifest_version": "0.3",
+  "name": "contextly",
+  "display_name": "Contextly",
+  "version": "0.3.0",
+  "description": "Save and recall your AI context across models — stored privately in your own files, Dropbox, or Google Drive.",
+  "long_description": "Contextly gives your AI five tools to store and recall your context (notes, decisions, working memory) so it carries across models and sessions. It runs entirely on your machine and keeps everything in storage you own. By default it saves to a private folder on this computer; point it at a Dropbox or Google Drive desktop-app folder to sync across devices.",
+  "author": {
+    "name": "Mehdi Merai"
+  },
+  "homepage": "https://mehdimerai.github.io/contextly/",
+  "documentation": "https://github.com/mehdimerai/contextly",
+  "support": "https://github.com/mehdimerai/contextly/issues",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "keywords": ["mcp", "context", "memory", "dropbox", "google-drive", "claude"],
+  "server": {
+    "type": "node",
+    "entry_point": "bin/contextly.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/bin/contextly.js"],
+      "env": {
+        "CONTEXTLY_DIR": "${user_config.storage_dir}"
+      }
+    }
+  },
+  "user_config": {
+    "storage_dir": {
+      "type": "directory",
+      "title": "Where to save your context",
+      "description": "Keep the default to store it privately on this computer. Or pick a folder inside your Dropbox or Google Drive desktop app to sync it across devices.",
+      "required": false,
+      "default": "${HOME}/.contextly"
+    }
+  },
+  "tools": [
+    { "name": "save_context", "description": "Save (or overwrite) a named context" },
+    { "name": "append_context", "description": "Append to an existing context" },
+    { "name": "list_contexts", "description": "List everything stored, as a table" },
+    { "name": "recall_context", "description": "Recall a stored context by name" },
+    { "name": "search_context", "description": "Search across all contexts" }
+  ],
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

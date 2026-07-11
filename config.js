@@ -19,7 +19,10 @@ import { FileStore, defaultDir } from "./stores/file.js";
 import { DropboxStore } from "./stores/dropbox.js";
 import { GDriveStore } from "./stores/gdrive.js";
 
-export const configDir = () => process.env.CONTEXTLY_DIR || path.join(os.homedir(), ".contextly");
+export const configDir = () => {
+  const d = process.env.CONTEXTLY_DIR;
+  return d && !d.includes("${") ? d : path.join(os.homedir(), ".contextly");
+};
 export const configPath = () => path.join(configDir(), "config.json");
 
 export async function loadConfig() {

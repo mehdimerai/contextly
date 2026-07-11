@@ -13,7 +13,11 @@ import path from "node:path";
 import { slugify } from "../util.js";
 import { parse, serialize, buildMeta } from "./format.js";
 
-export const defaultDir = () => process.env.CONTEXTLY_DIR || path.join(os.homedir(), ".contextly");
+export const defaultDir = () => {
+  const d = process.env.CONTEXTLY_DIR;
+  // ignore empty / unresolved "${...}" values (e.g. an unset .mcpb user_config)
+  return d && !d.includes("${") ? d : path.join(os.homedir(), ".contextly");
+};
 
 export class FileStore {
   constructor(dir = defaultDir()) { this.dir = dir; }

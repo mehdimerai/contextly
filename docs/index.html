@@ -228,6 +228,8 @@
     <h2 class="h2">Set it up, step by step</h2>
     <p class="lead">No coding required — just copy, paste, and click. About five minutes, one time.</p>
 
+    <div class="cnote" style="max-width:760px;margin:20px auto 0;background:rgba(52,211,153,.08);text-align:left">👉 <b>Just use Claude Desktop?</b> Skip everything below — grab the <a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb">one-click installer</a>, double-click it, and you’re done. The steps below are for Claude&nbsp;Code, Cursor, or setting up cloud sync.</div>
+
     <div class="setup">
 
       <div class="setup-step">
@@ -311,13 +313,20 @@
             </div>
 
             <div class="cpanel active" data-c="cd">
-              <p class="step">In Claude Desktop, open <b>Settings → Developer → Edit Config</b>. That opens a file called <code>claude_desktop_config.json</code>. Where you paste depends on what’s already inside it:</p>
+              <div class="cnote" style="background:rgba(52,211,153,.08)"><b>One-click installer — no Terminal, no config file.</b> For Claude Desktop you can even skip steps 1–3 above; the installer includes everything it needs.</div>
               <ol class="olist">
-                <li><b>Empty, or just <code>{}</code>?</b> Select all, delete it, and paste the whole block below.</li>
-                <li><b>Already has <code>"mcpServers": {&nbsp;…&nbsp;}</code>?</b> Add <em>only</em> the <code>"contextly": {&nbsp;…&nbsp;}</code> part, <em>inside</em> those braces. If another server is already listed there, put a comma after it first.</li>
-                <li><b>Not sure? Don’t guess.</b> Paste the file’s current contents into Claude and say “add this Contextly server for me,” then paste back exactly what it gives you.</li>
+                <li><a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb"><b>Download Contextly.mcpb</b></a>.</li>
+                <li><b>Double-click the downloaded file.</b> Claude Desktop opens and shows an install screen — click <b>Install</b>.</li>
+                <li>Done. The five Contextly tools are ready. (To sync via Dropbox or Google Drive, open the extension’s settings in Claude and point “Where to save your context” at a synced folder.)</li>
               </ol>
-              <div class="code"><div class="bar"><i></i><i></i><i></i></div>
+              <details style="margin-top:14px">
+                <summary style="cursor:pointer;color:var(--muted);font-size:13.5px">Prefer to set it up by hand instead?</summary>
+                <p class="step" style="margin-top:12px">Open <b>Settings → Developer → Edit Config</b> to open <code>claude_desktop_config.json</code>, then:</p>
+                <ol class="olist">
+                  <li><b>Empty, or just <code>{}</code>?</b> Replace it with the whole block below.</li>
+                  <li><b>Already has <code>"mcpServers": {&nbsp;…&nbsp;}</code>?</b> Add only the <code>"contextly": {&nbsp;…&nbsp;}</code> part inside those braces (comma after any existing server).</li>
+                </ol>
+                <div class="code"><div class="bar"><i></i><i></i><i></i></div>
 <pre>{
   <span class="g">"mcpServers"</span>: {
     <span class="g">"contextly"</span>: {
@@ -326,7 +335,8 @@
     }
   }
 }</pre></div>
-              <p class="tiny">Replace <code>PASTE-YOUR-CONTEXTLY-FOLDER</code> with the folder you unzipped in step 2 — e.g. <code>/Users/you/Documents/contextly/bin/contextly.js</code>. Then save the file and fully quit and reopen Claude.</p>
+                <p class="tiny">Replace <code>PASTE-YOUR-CONTEXTLY-FOLDER</code> with your unzipped folder from step 2, save, then quit and reopen Claude.</p>
+              </details>
             </div>
 
             <div class="cpanel" data-c="cc">

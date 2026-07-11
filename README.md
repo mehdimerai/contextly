@@ -23,7 +23,17 @@ is no Contextly account, server, or cloud — nothing to sign up for, nothing to
 | `recall_context` | Pull a stored context back into the conversation |
 | `search_context` | Keyword search across all contexts, with snippets |
 
-## Quick start (local files — zero config)
+## Easiest: Claude Desktop one-click install
+
+Download **[Contextly.mcpb](https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb)**,
+double-click it, and click **Install** in Claude Desktop. No Node, no config file,
+no Terminal — Claude Desktop runs it for you. To sync via Dropbox/Drive, point the
+extension's "Where to save your context" setting at a synced folder.
+
+For a friendly step-by-step version (and Cursor / cloud setup), see the
+[setup guide](https://mehdimerai.github.io/contextly/#start).
+
+## Quick start (any client, local files — zero config)
 
 Requires **Node ≥ 18**.
 
