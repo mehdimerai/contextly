@@ -9,7 +9,7 @@
  *   updated: 2026-01-02T00:00:00.000Z
  *   model: Claude Opus 4.7
  *   client: claude-desktop
- *   device: mehdi-mbp
+ *   device: my-laptop
  *   ---
  *
  *   ...body...
