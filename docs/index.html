@@ -3,157 +3,194 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contextly — One memory for every AI</title>
-<meta name="description" content="An open, local-first MCP server that saves and recalls your AI context — stored in your own files, Dropbox, or Google Drive. No account, no server, no cost." />
+<title>Contextly — The Memory Card for your AI</title>
+<meta name="description" content="A local-first MCP server that saves and recalls your AI context — stored in your own files, Dropbox, or Google Drive. Insert card, resume on any AI." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0b0f; --bg-2:#0e0f15; --panel:#14151c; --panel-2:#191b24;
-    --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.14);
-    --text:#eceef5; --muted:#9ea1b0; --muted-2:#717482;
-    --accent:#7c6cff; --accent-2:#a78bfa; --cyan:#3ddbd9;
-    --grad:linear-gradient(135deg,#6366f1 0%,#8b5cf6 45%,#22d3ee 100%);
-    --grad-text:linear-gradient(120deg,#a78bfa,#22d3ee);
-    --claude:#d97757; --dropbox:#0061ff; --drive:#34a853;
-    --maxw:1080px;
+    --bg:#141026; --bg2:#1d1636; --panel:#241a44; --panel2:#2f2358;
+    --ink:#f6f2ff; --dim:#b7abe6; --dim2:#8a7cc0;
+    --pink:#ff4d9d; --cyan:#2ee6e6; --yellow:#ffd23f; --green:#4dff91;
+    --purple:#9d7bff; --blue:#3d9bff;
+    --shadow:#070510; --line:#5a4a9c;
+    --title:'Press Start 2P',monospace;
+    --body:'VT323',monospace;
+    --maxw:1040px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
-    overflow-x:hidden;line-height:1.55;font-feature-settings:'cv02','cv03','cv11';
+    font-family:var(--body);background:var(--bg);color:var(--ink);
+    font-size:20px;line-height:1.45;overflow-x:hidden;
+    image-rendering:pixelated;
+    background-image:
+      linear-gradient(rgba(157,123,255,.05) 2px,transparent 2px),
+      linear-gradient(90deg,rgba(157,123,255,.05) 2px,transparent 2px);
+    background-size:32px 32px;
   }
-  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(800px 500px at 75% -5%,rgba(124,108,255,.18),transparent 60%),
-               radial-gradient(700px 500px at 5% 8%,rgba(34,211,238,.10),transparent 55%);}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  /* CRT scanlines */
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,.16) 0 1px,transparent 1px 3px);
+    mix-blend-mode:multiply;opacity:.6}
+  a{color:var(--cyan);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  ::selection{background:var(--pink);color:#fff}
 
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;border-radius:11px;padding:12px 20px;transition:.18s;white-space:nowrap;cursor:pointer}
-  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px -10px rgba(124,108,255,.8)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(124,108,255,.95)}
-  .btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--border-2);color:var(--text)}
-  .btn-ghost:hover{background:rgba(255,255,255,.1)}
-  .btn svg{width:16px;height:16px}
+  /* pixel headings */
+  .title{font-family:var(--title);line-height:1.5;text-transform:uppercase}
+  .h2{font-family:var(--title);font-size:clamp(15px,3vw,24px);line-height:1.5;text-align:center;color:var(--ink);text-shadow:3px 3px 0 var(--shadow)}
+  .eyebrow{font-family:var(--title);text-align:center;font-size:10px;color:var(--yellow);margin-bottom:16px;letter-spacing:1px}
+  .lead{text-align:center;color:var(--dim);max-width:600px;margin:14px auto 0;font-size:20px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--title);font-size:11px;
+    padding:14px 18px;cursor:pointer;border:3px solid var(--shadow);
+    box-shadow:5px 5px 0 var(--shadow);transition:transform .06s,box-shadow .06s;
+    color:#fff;text-transform:uppercase;white-space:nowrap}
+  .btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--shadow)}
+  .btn-primary{background:var(--pink)}
+  .btn-primary:hover{background:#ff64ac}
+  .btn-ghost{background:var(--panel2);color:var(--ink)}
+  .btn-ghost:hover{background:#3a2c6e}
+  .btn svg{width:15px;height:15px}
 
   /* nav */
-  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,11,15,.72);border-bottom:1px solid var(--border)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;letter-spacing:-.01em}
-  .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(124,108,255,.7)}
-  .logo svg{width:18px;height:18px}
-  .nav-links{display:flex;align-items:center;gap:26px;font-size:14.5px;color:var(--muted)}
-  .nav-links a:hover{color:var(--text)}
-  .pill{font-size:11.5px;font-weight:600;letter-spacing:.02em;padding:4px 10px;border-radius:999px;border:1px solid var(--border-2);color:var(--accent-2);background:rgba(124,108,255,.08)}
-  @media(max-width:720px){.nav-links a.hide-sm{display:none}}
+  nav{position:sticky;top:0;z-index:50;background:var(--bg2);border-bottom:3px solid var(--shadow)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--title);font-size:14px;color:var(--ink)}
+  .brand .mc{width:26px;height:31px}
+  .nav-links{display:flex;align-items:center;gap:20px;font-family:var(--title);font-size:10px;color:var(--dim)}
+  .nav-links a.lnk:hover{color:var(--cyan)}
+  .nav-links .btn{padding:10px 12px;font-size:9px;box-shadow:4px 4px 0 var(--shadow)}
+  @media(max-width:760px){.nav-links a.hide-sm{display:none}.brand{font-size:12px}}
 
   /* hero */
-  .hero{padding:80px 0 44px;text-align:center}
-  .hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
-  .hero p.sub{font-size:19px;color:var(--muted);max-width:640px;margin:24px auto 0}
-  .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap}
-  .hero-note{font-size:13px;color:var(--muted-2);margin-top:18px}
-  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
-  .badge{font-size:12.5px;color:var(--muted);border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:7px 14px;display:inline-flex;align-items:center;gap:7px}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  .hero{padding:66px 0 40px;text-align:center;position:relative}
+  .hero .mc-big{width:96px;height:116px;margin:0 auto 26px;filter:drop-shadow(6px 6px 0 var(--shadow))}
+  .hero h1{font-family:var(--title);font-size:clamp(18px,4.4vw,36px);line-height:1.5;color:var(--ink);
+    text-shadow:4px 4px 0 var(--shadow);margin-top:6px}
+  .hero h1 .cy{color:var(--cyan)}
+  .hero h1 .pk{color:var(--pink)}
+  .hero p.sub{font-size:21px;color:var(--dim);max-width:620px;margin:26px auto 0;line-height:1.5}
+  .hero-cta{display:flex;gap:16px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .pill{display:inline-block;font-family:var(--title);font-size:9px;color:var(--bg);background:var(--yellow);
+    padding:7px 12px;border:3px solid var(--shadow);box-shadow:4px 4px 0 var(--shadow)}
+  .press{font-family:var(--title);font-size:11px;color:var(--green);margin-top:30px}
+  @media(prefers-reduced-motion:no-preference){.press{animation:blink 1.1s steps(1) infinite}}
+  @keyframes blink{50%{opacity:0}}
+  .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .badge{font-size:16px;color:var(--dim);background:var(--panel);border:3px solid var(--shadow);
+    padding:6px 12px;display:inline-flex;align-items:center;gap:8px;font-family:var(--title);font-size:9px}
+  .badge b{color:var(--cyan)}
 
-  section.block{padding:56px 0}
-  .eyebrow{text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px}
-  .h2{text-align:center;font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em}
-  .lead{text-align:center;color:var(--muted);max-width:600px;margin:16px auto 0;font-size:16px}
-
-  /* storage cards */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
-  @media(max-width:820px){.grid3{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px}
-  .card h3{font-size:17px;font-weight:700;margin:14px 0 8px;display:flex;align-items:center;gap:9px}
-  .card p{color:var(--muted);font-size:14.5px}
-  .sic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff}
-  .tag{font-size:11.5px;font-weight:600;color:var(--muted-2);border:1px solid var(--border);border-radius:6px;padding:2px 8px;margin-left:auto}
+  section.block{padding:52px 0}
+  .divider{height:0;border-top:3px dashed var(--line);max-width:var(--maxw);margin:0 auto}
 
   /* tools */
-  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:36px}
-  .tool{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:16px 18px}
-  .tool code{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:var(--accent-2);font-weight:600}
-  .tool span{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:36px}
+  .tool{background:var(--panel);border:3px solid var(--shadow);box-shadow:5px 5px 0 var(--shadow);padding:16px 16px}
+  .tool code{font-family:var(--body);font-size:19px;color:var(--yellow)}
+  .tool span{display:block;color:var(--dim);font-size:17px;margin-top:5px}
+  .tool::before{content:"▶ ";color:var(--pink)}
 
-  /* code */
-  .code{max-width:760px;margin:36px auto 0;background:#0c0d13;border:1px solid var(--border-2);border-radius:16px;overflow:hidden}
-  .code .bar{display:flex;gap:7px;padding:13px 16px;border-bottom:1px solid var(--border)}
-  .code .bar i{width:11px;height:11px;border-radius:50%;background:#2a2c38}
-  .code pre{padding:20px 22px;overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.7;color:#cfd2dc}
-  .code .c{color:var(--muted-2)}
-  .code .g{color:#6ee7b7}
+  /* memory-card slots (storage) */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:3px solid var(--shadow);box-shadow:6px 6px 0 var(--shadow);padding:22px}
+  .card .slot{font-family:var(--title);font-size:9px;color:var(--dim2);margin-bottom:12px}
+  .card h3{font-family:var(--title);font-size:12px;margin:0 0 12px;display:flex;align-items:center;gap:9px;color:var(--ink)}
+  .card p{color:var(--dim);font-size:18px}
+  .sic{width:44px;height:44px;display:grid;place-items:center;font-size:20px;color:#fff;border:3px solid var(--shadow);margin-bottom:14px}
+  .tag{font-family:var(--title);font-size:7px;color:var(--bg);background:var(--green);padding:3px 6px;margin-left:auto}
 
-  /* feature rows */
-  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
-  @media(max-width:820px){.feat-grid{grid-template-columns:1fr}}
-  .feat .fic{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,rgba(124,108,255,.18),rgba(34,211,238,.12));display:grid;place-items:center;margin-bottom:16px;font-size:20px}
-  .feat h3{font-size:16.5px;font-weight:700;margin-bottom:7px}
-  .feat p{color:var(--muted);font-size:14.5px}
-
-  /* cta */
-  .cta-inner{max-width:800px;margin:0 auto;background:linear-gradient(135deg,rgba(99,102,241,.16),rgba(139,92,246,.1) 45%,rgba(34,211,238,.1));border:1px solid var(--border-2);border-radius:28px;padding:56px 40px;text-align:center;position:relative;overflow:hidden}
-  .cta-inner::after{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,108,255,.35),transparent 65%);filter:blur(30px)}
-  .cta-inner>*{position:relative}
-  .cta-inner h2{font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.02em}
-  .cta-inner p{color:var(--muted);margin:14px auto 28px;max-width:520px}
-
-  footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
-  footer .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--muted-2);font-size:13.5px}
-  footer a:hover{color:var(--text)}
-
-  /* client tabs */
-  .clients{max-width:820px;margin:30px auto 0}
-  .ctabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
-  .ctab{font-size:13.5px;font-weight:600;color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 16px;cursor:pointer;transition:.15s}
-  .ctab:hover{color:var(--text);border-color:var(--border-2)}
-  .ctab.active{color:#fff;background:linear-gradient(135deg,rgba(99,102,241,.9),rgba(34,211,238,.85));border-color:transparent}
-  .cpanel{display:none}
-  .cpanel.active{display:block}
-  .step{color:var(--muted);font-size:14px;margin:0 0 10px}
-  .step b{color:var(--text);font-weight:600}
-  .os{font-size:12.5px;color:var(--muted-2);margin:10px 0 4px}
-  .os code{color:var(--accent-2)}
-  .cnote{background:rgba(124,108,255,.07);border:1px solid var(--border);border-radius:14px;padding:20px 22px;color:var(--muted);font-size:14px;line-height:1.6}
-  .cnote b{color:var(--text)}
+  /* code / terminal */
+  .code{max-width:760px;margin:20px auto 0;background:#0c0a1a;border:3px solid var(--shadow);box-shadow:5px 5px 0 var(--shadow);overflow:hidden}
+  .code .bar{display:flex;gap:8px;padding:9px 12px;background:var(--panel2);border-bottom:3px solid var(--shadow)}
+  .code .bar i{width:12px;height:12px;background:var(--pink)}
+  .code .bar i:nth-child(2){background:var(--yellow)}
+  .code .bar i:nth-child(3){background:var(--green)}
+  .code pre{padding:16px 18px;overflow-x:auto;font-family:var(--body);font-size:18px;line-height:1.55;color:#d7e9ff}
+  .code .c{color:var(--dim2)}
+  .code .g{color:var(--green)}
   .code+.code{margin-top:14px}
 
-  /* numbered setup steps */
-  .setup{max-width:760px;margin:34px auto 0}
-  .setup-step{display:flex;gap:18px;padding:22px 0;border-top:1px solid var(--border)}
+  /* features */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+  @media(max-width:820px){.feat-grid{grid-template-columns:1fr}}
+  .feat{background:var(--panel);border:3px solid var(--shadow);box-shadow:5px 5px 0 var(--shadow);padding:22px}
+  .feat .fic{width:46px;height:46px;display:grid;place-items:center;font-size:22px;border:3px solid var(--shadow);background:var(--bg2);margin-bottom:14px}
+  .feat h3{font-family:var(--title);font-size:11px;margin-bottom:10px;color:var(--yellow);line-height:1.5}
+  .feat p{color:var(--dim);font-size:18px}
+
+  /* cta */
+  .cta-inner{max-width:760px;margin:0 auto;background:var(--panel2);border:4px double var(--cyan);
+    box-shadow:8px 8px 0 var(--shadow);padding:44px 34px;text-align:center}
+  .cta-inner h2{margin-bottom:16px}
+  .cta-inner p{color:var(--dim);margin:0 auto 26px;max-width:520px;font-size:19px}
+
+  footer{border-top:3px solid var(--shadow);padding:28px 0;margin-top:30px;background:var(--bg2)}
+  footer .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--dim2);font-size:16px;font-family:var(--body)}
+  footer a:hover{color:var(--cyan)}
+
+  /* tab groups (storage sub-tabs + client tabs) */
+  .clients{max-width:820px;margin:22px auto 0}
+  .ctabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  .ctab{font-family:var(--title);font-size:9px;color:var(--dim);background:var(--panel);
+    border:3px solid var(--shadow);box-shadow:3px 3px 0 var(--shadow);padding:10px 12px;cursor:pointer;text-transform:uppercase}
+  .ctab:hover{color:var(--ink)}
+  .ctab.active{color:var(--bg);background:var(--cyan);box-shadow:3px 3px 0 var(--shadow)}
+  .cpanel{display:none}
+  .cpanel.active{display:block}
+
+  .step{color:var(--dim);font-size:19px;margin:0 0 10px}
+  .step b{color:var(--ink)}
+  .tiny{font-size:16px;color:var(--dim2);margin-top:9px}
+  .cnote{background:var(--panel);border:3px solid var(--shadow);box-shadow:4px 4px 0 var(--shadow);padding:18px 18px;color:var(--dim);font-size:18px;line-height:1.5}
+  .cnote b{color:var(--ink)}
+  .cnote.good{border-color:var(--green)}
+
+  /* setup steps */
+  .setup{max-width:760px;margin:30px auto 0}
+  .setup-step{display:flex;gap:18px;padding:26px 0;border-top:3px dashed var(--line)}
   .setup-step:first-child{border-top:none}
-  .snum{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:#fff;background:var(--grad)}
+  .snum{flex:none;width:40px;height:40px;display:grid;place-items:center;font-family:var(--title);font-size:14px;color:var(--bg);background:var(--yellow);border:3px solid var(--shadow);box-shadow:3px 3px 0 var(--shadow)}
   .sbody{flex:1;min-width:0}
-  .sbody h3{font-size:17px;font-weight:700;margin-bottom:8px}
-  .opt{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-2);border:1px solid var(--border-2);border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:middle}
-  .tiny{font-size:12.5px;color:var(--muted-2);margin-top:8px}
-  .tip{background:rgba(34,211,238,.07);border:1px solid var(--border);border-radius:11px;padding:11px 14px;font-size:13px;color:var(--muted);margin-top:12px}
-  .tip b{color:var(--text)}
-  .sbody a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
-  .sbody code{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--accent-2)}
-  .olist{margin:8px 0 0;padding-left:22px;color:var(--muted);font-size:13.5px;line-height:1.7}
-  .olist li{margin:7px 0}
-  .olist b{color:var(--text)}
+  .sbody h3{font-family:var(--title);font-size:12px;margin-bottom:12px;color:var(--ink);line-height:1.5}
+  .opt{font-family:var(--title);font-size:7px;color:var(--bg);background:var(--dim);padding:3px 6px;margin-left:8px;vertical-align:middle}
+  .sbody a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+  .sbody code{background:#0c0a1a;border:2px solid var(--shadow);padding:0 6px;font-family:var(--body);font-size:16px;color:var(--yellow)}
+  .olist{margin:8px 0 0;padding-left:24px;color:var(--dim);font-size:18px;line-height:1.55}
+  .olist li{margin:9px 0}
+  .olist b{color:var(--ink)}
+  details summary{cursor:pointer;color:var(--dim);font-family:var(--title);font-size:9px;padding:6px 0}
+  details summary:hover{color:var(--cyan)}
 </style>
 </head>
 <body>
 
+<!-- reusable memory-card SVG is inlined per use for portability -->
+
 <nav>
   <div class="wrap">
     <a class="brand" href="#top">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 12l9-5M12 12v10M12 12L3 7" stroke="#fff" stroke-width="1.7" stroke-linejoin="round" opacity=".85"/></svg></span>
+      <svg class="mc" viewBox="0 0 40 48" shape-rendering="crispEdges" aria-hidden="true">
+        <path d="M4 3 H30 L37 10 V45 H4 Z" fill="#2b2b40" stroke="#08060f" stroke-width="2"/>
+        <path d="M4 3 H30 L37 10" fill="none" stroke="#5a5a86" stroke-width="2"/>
+        <rect x="9" y="9" width="20" height="15" fill="#0f0d18" stroke="#08060f" stroke-width="1.5"/>
+        <rect x="11" y="11" width="16" height="11" fill="url(#mcgN)"/>
+        <rect x="8" y="30" width="24" height="11" fill="#3a3a56" stroke="#08060f" stroke-width="1.5"/>
+        <g stroke="#08060f" stroke-width="1.5"><line x1="13" y1="30" x2="13" y2="41"/><line x1="18" y1="30" x2="18" y2="41"/><line x1="23" y1="30" x2="23" y2="41"/><line x1="28" y1="30" x2="28" y2="41"/></g>
+        <defs><linearGradient id="mcgN" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ee6e6"/><stop offset="1" stop-color="#ff4d9d"/></linearGradient></defs>
+      </svg>
       Contextly
     </a>
     <div class="nav-links">
-      <a href="#how" class="hide-sm">How it works</a>
-      <a href="#storage" class="hide-sm">Storage</a>
-      <a href="#start" class="hide-sm">Quick start</a>
-      <a class="btn btn-ghost" href="https://github.com/mehdimerai/contextly">GitHub ↗</a>
+      <a href="#how" class="lnk hide-sm">Tools</a>
+      <a href="#storage" class="lnk hide-sm">Slots</a>
+      <a href="#start" class="lnk hide-sm">Setup</a>
+      <a class="btn btn-ghost" href="https://github.com/mehdimerai/contextly">GitHub</a>
     </div>
   </div>
 </nav>
@@ -161,74 +198,94 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="wrap">
-    <span class="pill">Open · local-first · MCP</span>
-    <h1 style="margin-top:22px">Save it in one model.<br><span class="grad-text">Pick it up in another.</span></h1>
-    <p class="sub">Contextly is a tiny MCP server that gives Claude, Cursor, and any MCP client five tools to store and recall your context — so your notes and decisions travel across models and sessions. It runs entirely on your machine, in storage <em>you</em> own.</p>
+    <span class="pill">★ Open · Local · MCP ★</span>
+    <div style="height:22px"></div>
+    <svg class="mc-big" viewBox="0 0 40 48" shape-rendering="crispEdges" aria-hidden="true">
+      <path d="M4 3 H30 L37 10 V45 H4 Z" fill="#2b2b40" stroke="#08060f" stroke-width="2"/>
+      <path d="M4 3 H30 L37 10" fill="none" stroke="#5a5a86" stroke-width="2"/>
+      <rect x="9" y="9" width="20" height="15" fill="#0f0d18" stroke="#08060f" stroke-width="1.5"/>
+      <rect x="11" y="11" width="16" height="11" fill="url(#mcgH)"/>
+      <rect x="8" y="30" width="24" height="11" fill="#3a3a56" stroke="#08060f" stroke-width="1.5"/>
+      <g stroke="#08060f" stroke-width="1.5"><line x1="13" y1="30" x2="13" y2="41"/><line x1="18" y1="30" x2="18" y2="41"/><line x1="23" y1="30" x2="23" y2="41"/><line x1="28" y1="30" x2="28" y2="41"/></g>
+      <defs><linearGradient id="mcgH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ee6e6"/><stop offset="1" stop-color="#ff4d9d"/></linearGradient></defs>
+    </svg>
+    <h1>The <span class="cy">Memory Card</span><br>for your <span class="pk">AI</span></h1>
+    <p class="sub">Your AI forgets you the moment you switch apps. Contextly is a tiny MCP server that saves your context and loads it into any model — Claude, Cursor, and more. Runs on your machine, in storage <em>you</em> own.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
-        View on GitHub
+        Start
       </a>
-      <a class="btn btn-ghost" href="#start">Quick start</a>
+      <a class="btn btn-ghost" href="#start">How to play</a>
     </div>
+    <div class="press">▶ Press Start</div>
     <div class="badges">
-      <span class="badge"><span class="dot"></span>No account, no server</span>
-      <span class="badge"><span class="dot"></span>Your files · Dropbox · Google Drive</span>
-      <span class="badge"><span class="dot"></span>Free for personal use</span>
+      <span class="badge"><b>◆</b> No account, no server</span>
+      <span class="badge"><b>◆</b> Files · Dropbox · Drive</span>
+      <span class="badge"><b>◆</b> Free for personal use</span>
     </div>
   </div>
 </section>
 
-<!-- HOW / TOOLS -->
+<div class="divider"></div>
+
+<!-- TOOLS -->
 <section class="block" id="how">
   <div class="wrap">
-    <div class="eyebrow">Five tools</div>
-    <h2 class="h2">One memory, exposed to your AI</h2>
-    <p class="lead">Install once and your MCP client gains a portable, searchable memory. No copy-pasting between apps.</p>
+    <div class="eyebrow">★ Abilities ★</div>
+    <h2 class="h2">Five tools, one memory</h2>
+    <p class="lead">Install once and your AI gains a portable, searchable memory. No more copy-pasting between apps.</p>
     <div class="tools">
       <div class="tool"><code>save_context</code><span>Store a named context</span></div>
       <div class="tool"><code>append_context</code><span>Add to an existing one</span></div>
       <div class="tool"><code>list_contexts</code><span>See everything as a table</span></div>
-      <div class="tool"><code>recall_context</code><span>Pull it back into chat</span></div>
+      <div class="tool"><code>recall_context</code><span>Load it back into chat</span></div>
       <div class="tool"><code>search_context</code><span>Keyword search with snippets</span></div>
     </div>
   </div>
 </section>
 
-<!-- STORAGE -->
+<div class="divider"></div>
+
+<!-- STORAGE / SLOTS -->
 <section class="block" id="storage">
   <div class="wrap">
-    <div class="eyebrow">Bring your own storage</div>
-    <h2 class="h2">Your context lives where you choose</h2>
-    <p class="lead">Every backend writes the same portable Markdown files. Start local, move to the cloud, or switch anytime — your library comes with you.</p>
+    <div class="eyebrow">★ Select memory card ★</div>
+    <h2 class="h2">Your saves, where you choose</h2>
+    <p class="lead">Every slot writes the same portable Markdown files. Start local, move to the cloud, or switch anytime — your library comes with you.</p>
     <div class="grid3">
       <div class="card">
-        <div class="sic" style="background:linear-gradient(135deg,#6366f1,#22d3ee)">◉</div>
-        <h3>Local files <span class="tag">default</span></h3>
-        <p>Markdown in <code>~/.contextly</code>. Zero config, zero dependencies on anyone. Point it at a synced folder if you like.</p>
+        <div class="slot">SLOT 1</div>
+        <div class="sic" style="background:linear-gradient(135deg,#9d7bff,#2ee6e6)">◉</div>
+        <h3>This computer <span class="tag">DEFAULT</span></h3>
+        <p>Markdown files in <code>~/.contextly</code>. Zero config, no dependency on anyone. Point it at a synced folder if you like.</p>
       </div>
       <div class="card">
-        <div class="sic" style="background:var(--dropbox)">▼</div>
+        <div class="slot">SLOT 2</div>
+        <div class="sic" style="background:var(--blue)">▼</div>
         <h3>Your Dropbox</h3>
         <p>A scoped app folder in your own Dropbox. One command connects it — Contextly never sees the rest of your files.</p>
       </div>
       <div class="card">
-        <div class="sic" style="background:var(--drive)">△</div>
+        <div class="slot">SLOT 3</div>
+        <div class="sic" style="background:var(--green)">△</div>
         <h3>Your Google Drive</h3>
-        <p>A single <code>Contextly</code> folder using the narrow <code>drive.file</code> scope. Your Drive, your OAuth app, your data.</p>
+        <p>A single <code>Contextly</code> folder using the narrow <code>drive.file</code> scope. Your Drive, your app, your data.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- QUICK START -->
+<div class="divider"></div>
+
+<!-- SETUP / HOW TO PLAY -->
 <section class="block" id="start">
   <div class="wrap">
-    <div class="eyebrow">Set up</div>
+    <div class="eyebrow">★ How to play ★</div>
     <h2 class="h2">Set it up, step by step</h2>
     <p class="lead">No coding required — just copy, paste, and click. About five minutes, one time.</p>
 
-    <div class="cnote" style="max-width:760px;margin:20px auto 0;background:rgba(52,211,153,.08);text-align:left">👉 <b>Just use Claude Desktop?</b> Skip everything below — grab the <a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb">one-click installer</a>, double-click it, and you’re done. The steps below are for Claude&nbsp;Code, Cursor, or setting up cloud sync.</div>
+    <div class="cnote good" style="max-width:760px;margin:22px auto 0;text-align:left">👾 <b>Just use Claude Desktop?</b> Skip everything below — grab the <a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb">one-click installer</a>, double-click it, and you’re done. The steps below are for Claude&nbsp;Code, Cursor, or setting up cloud sync.</div>
 
     <div class="setup">
 
@@ -254,11 +311,11 @@
       <div class="setup-step">
         <div class="snum">3</div>
         <div class="sbody">
-          <h3>Pick where your notes are saved <span class="opt">optional</span></h3>
-          <p class="step">Choose one. The default (on your computer) needs no setup — the cloud options let you reach your notes from other devices.</p>
+          <h3>Pick your memory card <span class="opt">optional</span></h3>
+          <p class="step">Choose one. The default (on your computer) needs no setup — the cloud slots let you reach your notes from other devices.</p>
           <div class="clients">
             <div class="ctabs" role="tablist">
-              <button class="ctab active" data-c="local">On your computer</button>
+              <button class="ctab active" data-c="local">This PC</button>
               <button class="ctab" data-c="dropbox">Dropbox</button>
               <button class="ctab" data-c="gdrive">Google Drive</button>
             </div>
@@ -302,7 +359,7 @@
       <div class="setup-step">
         <div class="snum">4</div>
         <div class="sbody">
-          <h3>Connect your AI app</h3>
+          <h3>Connect your AI</h3>
           <p class="step">Choose the app you use:</p>
           <div class="clients">
             <div class="ctabs" role="tablist">
@@ -313,14 +370,14 @@
             </div>
 
             <div class="cpanel active" data-c="cd">
-              <div class="cnote" style="background:rgba(52,211,153,.08)"><b>One-click installer — no Terminal, no config file.</b> For Claude Desktop you can even skip steps 1–3 above; the installer includes everything it needs.</div>
+              <div class="cnote good"><b>One-click installer — no Terminal, no config file.</b> For Claude Desktop you can even skip steps 1–3 above; the installer includes everything it needs.</div>
               <ol class="olist">
                 <li><a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb"><b>Download Contextly.mcpb</b></a>.</li>
                 <li><b>Double-click the downloaded file.</b> Claude Desktop opens and shows an install screen — click <b>Install</b>.</li>
                 <li>Done. The five Contextly tools are ready. (To sync via Dropbox or Google Drive, open the extension’s settings in Claude and point “Where to save your context” at a synced folder.)</li>
               </ol>
               <details style="margin-top:14px">
-                <summary style="cursor:pointer;color:var(--muted);font-size:13.5px">Prefer to set it up by hand instead?</summary>
+                <summary>Prefer to set it up by hand instead?</summary>
                 <p class="step" style="margin-top:12px">Open <b>Settings → Developer → Edit Config</b> to open <code>claude_desktop_config.json</code>, then:</p>
                 <ol class="olist">
                   <li><b>Empty, or just <code>{}</code>?</b> Replace it with the whole block below.</li>
@@ -376,19 +433,21 @@
 
     </div>
 
-    <p class="step" style="text-align:center;margin-top:26px;color:var(--muted-2)">Done! Ask your AI to “save this as a context,” then “recall” it later — even in a different app.</p>
+    <p class="step" style="text-align:center;margin-top:28px;color:var(--dim2)">◆ Done! Ask your AI to “save this as a context,” then “recall” it later — even in a different app. ◆</p>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- WHY -->
 <section class="block">
   <div class="wrap">
-    <div class="eyebrow">Why it's built this way</div>
+    <div class="eyebrow">★ Why it rules ★</div>
     <h2 class="h2">Your context is yours alone</h2>
     <div class="feat-grid">
-      <div class="feat"><div class="fic">🔒</div><h3>No middle-man server</h3><p>There's no Contextly cloud. Nothing you save ever touches infrastructure we run — because there isn't any.</p></div>
-      <div class="feat"><div class="fic">🔁</div><h3>Portable by design</h3><p>Plain Markdown with frontmatter. Read it, grep it, back it up, or move it between backends byte-for-byte.</p></div>
-      <div class="feat"><div class="fic">🧩</div><h3>Works with any MCP client</h3><p>Claude Desktop, Claude Code, Cursor, and anything else that speaks the Model Context Protocol.</p></div>
+      <div class="feat"><div class="fic">🔒</div><h3>No middle-man server</h3><p>There’s no Contextly cloud. Nothing you save ever touches infrastructure we run — because there isn’t any.</p></div>
+      <div class="feat"><div class="fic">💾</div><h3>Portable by design</h3><p>Plain Markdown with a small header. Read it, search it, back it up, or move it between slots byte-for-byte.</p></div>
+      <div class="feat"><div class="fic">🎮</div><h3>Works with any MCP app</h3><p>Claude Desktop, Claude Code, Cursor, and anything else that speaks the Model Context Protocol.</p></div>
     </div>
   </div>
 </section>
@@ -397,9 +456,9 @@
 <section class="block">
   <div class="wrap">
     <div class="cta-inner">
-      <h2>Stop re-explaining yourself<br>to every AI.</h2>
-      <p>Clone it, run it locally, keep your memory in your own storage. Free for personal use.</p>
-      <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">Get Contextly on GitHub</a>
+      <h2 class="h2">Ready, Player One?</h2>
+      <p>Insert your memory card and stop re-explaining yourself to every AI. Free for personal use.</p>
+      <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">▶ Insert Card</a>
     </div>
   </div>
 </section>
