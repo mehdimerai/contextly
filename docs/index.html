@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contextly — The Memory Card for your AI</title>
-<meta name="description" content="A local-first MCP server that saves and recalls your AI context — stored in your own files, Dropbox, or Google Drive. Insert card, resume on any AI." />
+<title>Contextly — One memory for every AI</title>
+<meta name="description" content="An open, local-first MCP server that saves and recalls your AI context — stored in your own files, Dropbox, or Google Drive. No account, no server, no cost." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -188,7 +188,7 @@
     </a>
     <div class="nav-links">
       <a href="#how" class="lnk hide-sm">Tools</a>
-      <a href="#storage" class="lnk hide-sm">Slots</a>
+      <a href="#storage" class="lnk hide-sm">Storage</a>
       <a href="#start" class="lnk hide-sm">Setup</a>
       <a class="btn btn-ghost" href="https://github.com/mehdimerai/contextly">GitHub</a>
     </div>
@@ -198,7 +198,7 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="wrap">
-    <span class="pill">★ Open · Local · MCP ★</span>
+    <span class="pill">Open · local-first · MCP</span>
     <div style="height:22px"></div>
     <svg class="mc-big" viewBox="0 0 40 48" shape-rendering="crispEdges" aria-hidden="true">
       <path d="M4 3 H30 L37 10 V45 H4 Z" fill="#2b2b40" stroke="#08060f" stroke-width="2"/>
@@ -209,16 +209,15 @@
       <g stroke="#08060f" stroke-width="1.5"><line x1="13" y1="30" x2="13" y2="41"/><line x1="18" y1="30" x2="18" y2="41"/><line x1="23" y1="30" x2="23" y2="41"/><line x1="28" y1="30" x2="28" y2="41"/></g>
       <defs><linearGradient id="mcgH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ee6e6"/><stop offset="1" stop-color="#ff4d9d"/></linearGradient></defs>
     </svg>
-    <h1>The <span class="cy">Memory Card</span><br>for your <span class="pk">AI</span></h1>
-    <p class="sub">Your AI forgets you the moment you switch apps. Contextly is a tiny MCP server that saves your context and loads it into any model — Claude, Cursor, and more. Runs on your machine, in storage <em>you</em> own.</p>
+    <h1>Save it in one model,<br><span class="cy">pick it up in another</span></h1>
+    <p class="sub">Contextly is a tiny MCP server that gives Claude, Cursor, and any MCP client five tools to store and recall your context — so your notes and decisions travel across models and sessions. It runs entirely on your machine, in storage <em>you</em> own.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
-        Start
+        View on GitHub
       </a>
-      <a class="btn btn-ghost" href="#start">How to play</a>
+      <a class="btn btn-ghost" href="#start">Quick start</a>
     </div>
-    <div class="press">▶ Press Start</div>
     <div class="badges">
       <span class="badge"><b>◆</b> No account, no server</span>
       <span class="badge"><b>◆</b> Files · Dropbox · Drive</span>
@@ -232,9 +231,9 @@
 <!-- TOOLS -->
 <section class="block" id="how">
   <div class="wrap">
-    <div class="eyebrow">★ Abilities ★</div>
-    <h2 class="h2">Five tools, one memory</h2>
-    <p class="lead">Install once and your AI gains a portable, searchable memory. No more copy-pasting between apps.</p>
+    <div class="eyebrow">Five tools</div>
+    <h2 class="h2">One memory, exposed to your AI</h2>
+    <p class="lead">Install once and your MCP client gains a portable, searchable memory. No copy-pasting between apps.</p>
     <div class="tools">
       <div class="tool"><code>save_context</code><span>Store a named context</span></div>
       <div class="tool"><code>append_context</code><span>Add to an existing one</span></div>
@@ -250,27 +249,24 @@
 <!-- STORAGE / SLOTS -->
 <section class="block" id="storage">
   <div class="wrap">
-    <div class="eyebrow">★ Select memory card ★</div>
-    <h2 class="h2">Your saves, where you choose</h2>
-    <p class="lead">Every slot writes the same portable Markdown files. Start local, move to the cloud, or switch anytime — your library comes with you.</p>
+    <div class="eyebrow">Bring your own storage</div>
+    <h2 class="h2">Your context lives where you choose</h2>
+    <p class="lead">Every backend writes the same portable Markdown files. Start local, move to the cloud, or switch anytime — your library comes with you.</p>
     <div class="grid3">
       <div class="card">
-        <div class="slot">SLOT 1</div>
         <div class="sic" style="background:linear-gradient(135deg,#9d7bff,#2ee6e6)">◉</div>
-        <h3>This computer <span class="tag">DEFAULT</span></h3>
-        <p>Markdown files in <code>~/.contextly</code>. Zero config, no dependency on anyone. Point it at a synced folder if you like.</p>
+        <h3>Local files <span class="tag">default</span></h3>
+        <p>Markdown in <code>~/.contextly</code>. Zero config, zero dependencies on anyone. Point it at a synced folder if you like.</p>
       </div>
       <div class="card">
-        <div class="slot">SLOT 2</div>
         <div class="sic" style="background:var(--blue)">▼</div>
         <h3>Your Dropbox</h3>
         <p>A scoped app folder in your own Dropbox. One command connects it — Contextly never sees the rest of your files.</p>
       </div>
       <div class="card">
-        <div class="slot">SLOT 3</div>
         <div class="sic" style="background:var(--green)">△</div>
         <h3>Your Google Drive</h3>
-        <p>A single <code>Contextly</code> folder using the narrow <code>drive.file</code> scope. Your Drive, your app, your data.</p>
+        <p>A single <code>Contextly</code> folder using the narrow <code>drive.file</code> scope. Your Drive, your OAuth app, your data.</p>
       </div>
     </div>
   </div>
@@ -281,11 +277,11 @@
 <!-- SETUP / HOW TO PLAY -->
 <section class="block" id="start">
   <div class="wrap">
-    <div class="eyebrow">★ How to play ★</div>
+    <div class="eyebrow">Set up</div>
     <h2 class="h2">Set it up, step by step</h2>
     <p class="lead">No coding required — just copy, paste, and click. About five minutes, one time.</p>
 
-    <div class="cnote good" style="max-width:760px;margin:22px auto 0;text-align:left">👾 <b>Just use Claude Desktop?</b> Skip everything below — grab the <a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb">one-click installer</a>, double-click it, and you’re done. The steps below are for Claude&nbsp;Code, Cursor, or setting up cloud sync.</div>
+    <div class="cnote good" style="max-width:760px;margin:22px auto 0;text-align:left">👉 <b>Just use Claude Desktop?</b> Skip everything below — grab the <a href="https://github.com/mehdimerai/contextly/releases/latest/download/contextly.mcpb">one-click installer</a>, double-click it, and you’re done. The steps below are for Claude&nbsp;Code, Cursor, or setting up cloud sync.</div>
 
     <div class="setup">
 
@@ -311,11 +307,11 @@
       <div class="setup-step">
         <div class="snum">3</div>
         <div class="sbody">
-          <h3>Pick your memory card <span class="opt">optional</span></h3>
-          <p class="step">Choose one. The default (on your computer) needs no setup — the cloud slots let you reach your notes from other devices.</p>
+          <h3>Pick where your notes are saved <span class="opt">optional</span></h3>
+          <p class="step">Choose one. The default (on your computer) needs no setup — the cloud options let you reach your notes from other devices.</p>
           <div class="clients">
             <div class="ctabs" role="tablist">
-              <button class="ctab active" data-c="local">This PC</button>
+              <button class="ctab active" data-c="local">On your computer</button>
               <button class="ctab" data-c="dropbox">Dropbox</button>
               <button class="ctab" data-c="gdrive">Google Drive</button>
             </div>
@@ -433,7 +429,7 @@
 
     </div>
 
-    <p class="step" style="text-align:center;margin-top:28px;color:var(--dim2)">◆ Done! Ask your AI to “save this as a context,” then “recall” it later — even in a different app. ◆</p>
+    <p class="step" style="text-align:center;margin-top:28px;color:var(--dim2)">Done! Ask your AI to “save this as a context,” then “recall” it later — even in a different app.</p>
   </div>
 </section>
 
@@ -442,12 +438,12 @@
 <!-- WHY -->
 <section class="block">
   <div class="wrap">
-    <div class="eyebrow">★ Why it rules ★</div>
+    <div class="eyebrow">Why it's built this way</div>
     <h2 class="h2">Your context is yours alone</h2>
     <div class="feat-grid">
-      <div class="feat"><div class="fic">🔒</div><h3>No middle-man server</h3><p>There’s no Contextly cloud. Nothing you save ever touches infrastructure we run — because there isn’t any.</p></div>
-      <div class="feat"><div class="fic">💾</div><h3>Portable by design</h3><p>Plain Markdown with a small header. Read it, search it, back it up, or move it between slots byte-for-byte.</p></div>
-      <div class="feat"><div class="fic">🎮</div><h3>Works with any MCP app</h3><p>Claude Desktop, Claude Code, Cursor, and anything else that speaks the Model Context Protocol.</p></div>
+      <div class="feat"><div class="fic">🔒</div><h3>No middle-man server</h3><p>There's no Contextly cloud. Nothing you save ever touches infrastructure we run — because there isn't any.</p></div>
+      <div class="feat"><div class="fic">🔁</div><h3>Portable by design</h3><p>Plain Markdown with frontmatter. Read it, grep it, back it up, or move it between backends byte-for-byte.</p></div>
+      <div class="feat"><div class="fic">🧩</div><h3>Works with any MCP client</h3><p>Claude Desktop, Claude Code, Cursor, and anything else that speaks the Model Context Protocol.</p></div>
     </div>
   </div>
 </section>
@@ -456,9 +452,9 @@
 <section class="block">
   <div class="wrap">
     <div class="cta-inner">
-      <h2 class="h2">Ready, Player One?</h2>
-      <p>Insert your memory card and stop re-explaining yourself to every AI. Free for personal use.</p>
-      <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">▶ Insert Card</a>
+      <h2 class="h2">Stop re-explaining yourself to every AI.</h2>
+      <p>Clone it, run it locally, keep your memory in your own storage. Free for personal use.</p>
+      <a class="btn btn-primary" href="https://github.com/mehdimerai/contextly">Get Contextly on GitHub</a>
     </div>
   </div>
 </section>
