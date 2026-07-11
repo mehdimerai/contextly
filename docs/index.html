@@ -311,7 +311,12 @@
             </div>
 
             <div class="cpanel active" data-c="cd">
-              <p class="step">In Claude Desktop, open <b>Settings → Developer → Edit Config</b>. Paste the block below into that file, save it, then fully quit and reopen Claude.</p>
+              <p class="step">In Claude Desktop, open <b>Settings → Developer → Edit Config</b>. That opens a file called <code>claude_desktop_config.json</code>. Where you paste depends on what’s already inside it:</p>
+              <ol class="olist">
+                <li><b>Empty, or just <code>{}</code>?</b> Select all, delete it, and paste the whole block below.</li>
+                <li><b>Already has <code>"mcpServers": {&nbsp;…&nbsp;}</code>?</b> Add <em>only</em> the <code>"contextly": {&nbsp;…&nbsp;}</code> part, <em>inside</em> those braces. If another server is already listed there, put a comma after it first.</li>
+                <li><b>Not sure? Don’t guess.</b> Paste the file’s current contents into Claude and say “add this Contextly server for me,” then paste back exactly what it gives you.</li>
+              </ol>
               <div class="code"><div class="bar"><i></i><i></i><i></i></div>
 <pre>{
   <span class="g">"mcpServers"</span>: {
@@ -321,7 +326,7 @@
     }
   }
 }</pre></div>
-              <div class="tip"><b>Two easy bits:</b> the folder path is what you unzipped in step 2 — e.g. <code>/Users/you/Documents/contextly/bin/contextly.js</code>. And if the file already has text in it, don't guess — <b>paste the file’s contents into Claude and ask it to add Contextly for you.</b></div>
+              <p class="tiny">Replace <code>PASTE-YOUR-CONTEXTLY-FOLDER</code> with the folder you unzipped in step 2 — e.g. <code>/Users/you/Documents/contextly/bin/contextly.js</code>. Then save the file and fully quit and reopen Claude.</p>
             </div>
 
             <div class="cpanel" data-c="cc">
@@ -332,7 +337,11 @@
             </div>
 
             <div class="cpanel" data-c="cur">
-              <p class="step">In Cursor, open <b>Settings → MCP → Add new server</b> (or edit <code>~/.cursor/mcp.json</code>) and paste this, then turn it on:</p>
+              <p class="step">In Cursor, open <b>Settings → MCP → Add new server</b>, or edit the file <code>~/.cursor/mcp.json</code>. Same rule as Claude Desktop:</p>
+              <ol class="olist">
+                <li><b>Empty file?</b> Paste the whole block below.</li>
+                <li><b>Already has <code>"mcpServers"</code>?</b> Add only the <code>"contextly": {&nbsp;…&nbsp;}</code> part inside those braces (comma-separate it from any server already there).</li>
+              </ol>
               <div class="code"><div class="bar"><i></i><i></i><i></i></div>
 <pre>{
   <span class="g">"mcpServers"</span>: {
@@ -342,7 +351,7 @@
     }
   }
 }</pre></div>
-              <div class="tip">The folder path is the one you unzipped in step 2 — e.g. <code>/Users/you/Documents/contextly/bin/contextly.js</code>.</div>
+              <p class="tiny">Replace <code>PASTE-YOUR-CONTEXTLY-FOLDER</code> with your unzipped folder from step 2, then switch the server on in Cursor’s MCP settings.</p>
             </div>
 
             <div class="cpanel" data-c="gpt">
@@ -400,6 +409,12 @@
       group.querySelectorAll('.ctab').forEach((t) => t.classList.toggle('active', t === tab));
       group.querySelectorAll('.cpanel').forEach((p) => p.classList.toggle('active', p.dataset.c === c));
     });
+  });
+
+  // open every external link in a new tab
+  document.querySelectorAll('a[href^="http"]').forEach((a) => {
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
   });
 </script>
 </body>
