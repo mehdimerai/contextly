@@ -135,6 +135,10 @@
   .tip{background:rgba(34,211,238,.07);border:1px solid var(--border);border-radius:11px;padding:11px 14px;font-size:13px;color:var(--muted);margin-top:12px}
   .tip b{color:var(--text)}
   .sbody a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+  .sbody code{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--accent-2)}
+  .olist{margin:8px 0 0;padding-left:22px;color:var(--muted);font-size:13.5px;line-height:1.7}
+  .olist li{margin:7px 0}
+  .olist b{color:var(--text)}
 </style>
 </head>
 <body>
@@ -249,9 +253,47 @@
         <div class="snum">3</div>
         <div class="sbody">
           <h3>Pick where your notes are saved <span class="opt">optional</span></h3>
-          <p class="step">By default, everything is saved privately <b>on your computer</b> — you can skip this step. To use your own <b>Dropbox</b> or <b>Google&nbsp;Drive</b> instead, type one of these in the same Terminal and press Enter. A browser opens — just click <b>Allow</b>.</p>
-          <div class="code"><div class="bar"><i></i><i></i><i></i></div><pre>node bin/contextly-auth.js dropbox
-node bin/contextly-auth.js gdrive</pre></div>
+          <p class="step">Choose one. The default (on your computer) needs no setup — the cloud options let you reach your notes from other devices.</p>
+          <div class="clients">
+            <div class="ctabs" role="tablist">
+              <button class="ctab active" data-c="local">On your computer</button>
+              <button class="ctab" data-c="dropbox">Dropbox</button>
+              <button class="ctab" data-c="gdrive">Google Drive</button>
+            </div>
+
+            <div class="cpanel active" data-c="local">
+              <div class="cnote"><b>Nothing to do here.</b> Contextly already saves everything privately in a folder on your computer (<code>~/.contextly</code>). Skip to step 4 — you can always switch to a cloud later.</div>
+            </div>
+
+            <div class="cpanel" data-c="dropbox">
+              <p class="step">In your Terminal, run:</p>
+              <div class="code"><div class="bar"><i></i><i></i><i></i></div><pre>node bin/contextly-auth.js dropbox</pre></div>
+              <p class="step" style="margin-top:12px">It asks for a <b>Dropbox App key</b>. To get one, make a free Dropbox “app” (~2 min). This lets Contextly save into <em>its own folder</em> in your Dropbox — it can’t see anything else:</p>
+              <ol class="olist">
+                <li>Open the <a href="https://www.dropbox.com/developers/apps/create">Dropbox App Console</a> and sign in.</li>
+                <li>Choose <b>Scoped access</b> → <b>App folder</b>, name it <code>Contextly</code>, and click <b>Create app</b>.</li>
+                <li>Open the <b>Permissions</b> tab, tick <code>files.content.read</code> and <code>files.content.write</code>, then click <b>Submit</b>.</li>
+                <li>Open the <b>Settings</b> tab. Under <b>OAuth 2 → Redirect URIs</b>, paste <code>http://localhost:53682</code> and click <b>Add</b>.</li>
+                <li>Still on <b>Settings</b>, copy the <b>App key</b> near the top.</li>
+                <li>Paste it into the Terminal and press Enter. A browser opens — click <b>Allow</b>. Done!</li>
+              </ol>
+            </div>
+
+            <div class="cpanel" data-c="gdrive">
+              <p class="step">In your Terminal, run:</p>
+              <div class="code"><div class="bar"><i></i><i></i><i></i></div><pre>node bin/contextly-auth.js gdrive</pre></div>
+              <p class="step" style="margin-top:12px">It asks for a <b>Client ID</b> and <b>Client secret</b>. To get them, set up a free Google app (~4 min). Contextly only ever sees a single <code>Contextly</code> folder it creates:</p>
+              <ol class="olist">
+                <li>Open the <a href="https://console.cloud.google.com/">Google Cloud Console</a> and create a project (top bar → <b>New Project</b>).</li>
+                <li>Search <b>“Google Drive API”</b> at the top, open it, and click <b>Enable</b>.</li>
+                <li>Go to <b>OAuth consent screen</b> → choose <b>External</b> → add an app name + your email → under <b>Test users</b>, add your own Google address.</li>
+                <li>Go to <b>Credentials</b> → <b>Create credentials</b> → <b>OAuth client ID</b> → Application type <b>Desktop app</b> → <b>Create</b>.</li>
+                <li>Copy the <b>Client ID</b> and <b>Client secret</b> it shows you.</li>
+                <li>Paste them into the Terminal when asked, press Enter, and click <b>Allow</b> in the browser.</li>
+              </ol>
+              <p class="tiny">Google may say the app is “unverified” — that’s normal for your own private app. Click <b>Advanced → Go to (your app)</b> to continue.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -353,9 +395,10 @@ node bin/contextly-auth.js gdrive</pre></div>
 <script>
   document.querySelectorAll('.ctab').forEach((tab) => {
     tab.addEventListener('click', () => {
+      const group = tab.closest('.clients');   // scope to this tab group only
       const c = tab.dataset.c;
-      document.querySelectorAll('.ctab').forEach((t) => t.classList.toggle('active', t === tab));
-      document.querySelectorAll('.cpanel').forEach((p) => p.classList.toggle('active', p.dataset.c === c));
+      group.querySelectorAll('.ctab').forEach((t) => t.classList.toggle('active', t === tab));
+      group.querySelectorAll('.cpanel').forEach((p) => p.classList.toggle('active', p.dataset.c === c));
     });
   });
 </script>
