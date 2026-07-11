@@ -1,0 +1,42 @@
+{
+  "name": "contextly-mcp",
+  "version": "0.3.0",
+  "description": "MCP server that stores and recalls your AI context as Markdown files in storage you own — local disk, your Dropbox, or your Google Drive.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "bin": {
+    "contextly": "bin/contextly.js",
+    "contextly-auth": "bin/contextly-auth.js"
+  },
+  "files": [
+    "bin/",
+    "stores/",
+    "lib.js",
+    "util.js",
+    "config.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/contextly.js",
+    "test": "node test/smoke.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "context",
+    "memory",
+    "dropbox",
+    "google-drive",
+    "claude",
+    "cursor"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "zod": "^3.23.8"
+  }
+}
