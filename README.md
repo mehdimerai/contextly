@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mehdimerai/contextly/main/docs/banner.png" alt="Contextly — save it in one model, pick it up in another" width="820">
+</p>
+
 # Contextly
 
 **Store your AI context once, recall it into any model.** Contextly is a small
